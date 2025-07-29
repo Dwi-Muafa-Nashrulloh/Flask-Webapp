@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <h1>Selamat Datang di Web App Flask</h1>
+        <p>Aplikasi web sederhana dengan Flask dan PostgreSQL untuk manajemen user dan postingan.</p>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h3>Users</h3>
+                <p>Kelola data pengguna aplikasi</p>
+                <a href="{{ url_for('users') }}" class="btn">Lihat Users</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <h3>Posts</h3>
+                <p>Kelola konten postingan</p>
+                <a href="{{ url_for('posts') }}" class="btn">Lihat Posts</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Postingan Terbaru</h2>
+        
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card" style="margin-bottom: 15px;">
+                    <h4>{{ post.title }}</h4>
+                    <p>{{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}</p>
+                    <small>
+                        Oleh: {{ post.author }} | 
+                        {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
+                    </small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Belum ada postingan.</p>
+        {% endif %}
+    </div>
+{% endblock %}

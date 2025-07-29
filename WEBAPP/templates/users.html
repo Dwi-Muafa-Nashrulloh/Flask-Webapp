@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <h1>Kelola Users</h1>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h2>Tambah User Baru</h2>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="name">Nama:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn">Tambah User</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <h2>Daftar Users</h2>
+                
+                {% if users %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Tanggal Daftar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Belum ada user terdaftar.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

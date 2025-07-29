@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <h1>Kelola Posts</h1>
+    </div>
+
+    <div class="card">
+        <h2>Buat Post Baru</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Judul:</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Konten:</label>
+                <textarea id="content" name="content" rows="5" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn">Publikasikan</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Semua Posts</h2>
+        
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card" style="margin-bottom: 15px;">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    <small>
+                        Oleh: {{ post.author }} | 
+                        {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
+                    </small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Belum ada postingan.</p>
+        {% endif %}
+    </div>
+{% endblock %}
